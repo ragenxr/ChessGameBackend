@@ -37,7 +37,8 @@ class GamesMessenger extends Messenger {
     );
     socket.on(
       'games:make-move',
-      async(gameId, position) => {
+      async(input) => {
+        const {gameId} = input;
         const game = await this.games.find(gameId);
 
         if (game.finishedAt) {
@@ -51,43 +52,25 @@ class GamesMessenger extends Messenger {
         }
 
         try {
-          const ticTacToe = new TicTacToe(game.size, game.playerOneId, game.playerTwoId);
-
-          ticTacToe.load(
-            game.moves
-              .filter(Boolean)
-              .sort((left, right) => left.number - right.number)
-              .map(({position: playedPosition}) => playedPosition)
-          );
-          const currentPlayer = ticTacToe.makeMove(position, Number(game.playerTwoId === socket.data.id));
-          const nextPlayer = ticTacToe.currentPlayer;
-          const player = Number(currentPlayer.symbol === 'O') + 1;
-
-          try {
-            await this.games.addMove(gameId, ticTacToe.moves.length, position);
-
-            this.io
-              .in(`game#${gameId}`)
-              .emit('games:move-made', {position, player, currentPlayer, nextPlayer});
-
-            if (ticTacToe.isWinner(currentPlayer) || ticTacToe.isDraw) {
-              const winner = !ticTacToe.isDraw ? currentPlayer : null;
-
-              await this.games.update(gameId, player);
-
-              this.io
-                .in(`game#${gameId}`)
-                .emit('games:finished', {winner, winPosition: ticTacToe.winPosition});
-              this.io
-                .in(`game#${gameId}`)
-                .socketsLeave(`game#${gameId}`);
-            }
-          } catch (err) {
-            socket.emit('games:error', 'Internal Server Error');
-          }
+          this.io
+            .in(`game#${gameId}`)
+            .emit('games:move-made', input);
         } catch (err) {
-          socket.emit('games:error', err.message);
+          socket.emit('games:error', 'Internal Server Error');
         }
+      }
+    );
+    socket.on(
+      'games:finish-game',
+      async({gameId, player}) => {
+        await this.games.update(gameId, Number(player) + 1);
+
+        this.io
+          .in(`game#${gameId}`)
+          .emit('games:finished', {winner: player});
+        this.io
+          .in(`game#${gameId}`)
+          .socketsLeave(`game#${gameId}`);
       }
     );
     socket.on(
