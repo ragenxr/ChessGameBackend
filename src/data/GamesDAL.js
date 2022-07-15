@@ -22,7 +22,7 @@ class GamesDAL extends DAL {
    * @param {int} size
    * @return {Promise<int>}
    */
-   create = async(userIds, size = 3) => {
+   create = async(userIds) => {
     const [{id: gameId}] = await this.db
       .insert([{size}])
       .into('games')
