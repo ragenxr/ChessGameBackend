@@ -5,7 +5,6 @@ class GamesDAL extends DAL {
   fieldMap = {
     id: 'g.id',
     winner: 'g.winner',
-    size: 'g.size',
     createdAt: 'g.created_at',
     finishedAt: 'g.finished_at',
     deletedAt: 'g.deleted_at',
@@ -19,12 +18,11 @@ class GamesDAL extends DAL {
   /**
    * Создает игру.
    * @param {int[]} userIds
-   * @param {int} size
    * @return {Promise<int>}
    */
    create = async(userIds) => {
     const [{id: gameId}] = await this.db
-      .insert([{size}])
+      .insert([{}])
       .into('games')
       .returning('id');
 
@@ -142,7 +140,6 @@ class GamesDAL extends DAL {
               id,
               winner,
               finished_at: new Date().toISOString(),
-              size: games[idx].size,
               created_at: new Date().toISOString(),
             })
           )

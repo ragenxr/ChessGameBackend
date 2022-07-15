@@ -8,7 +8,7 @@ module.exports = ({config}) => {
         level: config.logger.level,
         host: config.logger.host,
         labels: {
-          app: 'tic-tac-toe'
+          app: 'multiplayer-chess-game'
         }
       }),
       ...config.logger.console ? [

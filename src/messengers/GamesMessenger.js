@@ -1,7 +1,6 @@
 const {Messenger} = require('../base');
 const {GamesDAL} = require('../data');
 const PlayersMessenger = require('./PlayersMessenger');
-const {TicTacToe} = require('../entities/TicTacToe');
 
 class GamesMessenger extends Messenger {
   constructor({io, db}) {
@@ -63,7 +62,7 @@ class GamesMessenger extends Messenger {
     socket.on(
       'games:finish-game',
       async({gameId, player}) => {
-        await this.games.update(gameId, Number(player) + 1);
+        await this.games.update(gameId, Number(!player) + 1);
 
         this.io
           .in(`game#${gameId}`)

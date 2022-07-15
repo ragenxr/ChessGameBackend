@@ -18,7 +18,7 @@ class Game {
    * Проверяет победил ли игрок по индексу, который передаётся,
    * с помощью обхода всех вариантов пока не встретится подходящий.
    * Возвращает true, если игрок победил, иначе false.
-   * @param {{info: *, symbol: "X"|"O"}} playerIdx
+   * @param {{info: *, symbol: "W"|"B"}} playerIdx
    * @returns {boolean}
    */
   isWinner(playerIdx) {
@@ -45,15 +45,6 @@ class Game {
   }
 
   /**
-   * Изменяет размер игры.
-   * @param size
-   * @returns {void}
-   */
-  restartWith(size) {
-    throw new Error("Not Implemented");
-  }
-
-  /**
    * Проверяет начата ли игра.
    * @returns {boolean}
    */
@@ -71,16 +62,8 @@ class Game {
   }
 
   /**
-   * Получает размер поля.
-   * @returns {number}
-   */
-  get size() {
-    throw new Error("Not Implemented");
-  }
-
-  /**
    * Получает информацию об игроках.
-   * @returns {{info: *, symbol: ("X"|"O")}[]}
+   * @returns {{info: *, symbol: ("W"|"B")}[]}
    */
   get players() {
     throw new Error("Not Implemented");

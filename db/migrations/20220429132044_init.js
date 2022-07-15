@@ -39,10 +39,6 @@ exports.up = async(knex) => {
       .primary()
       .comment('Идентификатор');
     table
-      .integer('size')
-      .notNullable()
-      .comment('Размер поля');
-    table
       .integer('winner')
       .nullable()
       .comment('Номер победившего игрока');

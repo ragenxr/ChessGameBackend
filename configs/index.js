@@ -12,11 +12,11 @@ module.exports = {
       console: 1
     },
     metrics: {
-      prefix: 'tic_tac_toe_'
+      prefix: 'multiplayer_chess_game'
     },
     database: {
       client: 'pg',
-      connection: 'postgresql://tic_tac_toe:Passw0rd@localhost:5432/tic_tac_toe',
+      connection: 'postgresql://multiplayer_chess_game:Passw0rd@localhost:5432/multiplayer_chess_game',
       pool: {
         min: 4,
         max: 16

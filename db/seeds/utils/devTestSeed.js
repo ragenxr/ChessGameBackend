@@ -70,7 +70,6 @@ exports.seed = async(knex) => {
       Array
         .from({length: 20})
         .map(() => ({
-          size: 3,
           winner: randomFromArray([null, 1, 2]),
           finished_at: randomDate(new Date(), new Date(2022, 5, 30)).toUTCString()
         }))

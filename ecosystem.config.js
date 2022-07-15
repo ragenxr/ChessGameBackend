@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name: 'tic-tac-toe',
+    name: 'multiplayer-chess-game',
     script: 'index.js',
     exec_mode: 'cluster',
     instances: 4,

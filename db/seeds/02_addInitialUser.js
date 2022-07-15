@@ -23,10 +23,10 @@ const randomString = (length = 8) => {
  */
 exports.seed = async(knex) => {
   const password = randomString();
-  const [{id: andreeffId}] = await knex
+  const [{id: CumbodiaId}] = await knex
     .insert([
       {
-        login: 'andreeff',
+        login: 'Cumbodia',
         password: await bcrypt.hash(password, 6)
       }
     ])
@@ -40,11 +40,11 @@ exports.seed = async(knex) => {
     .insert(
       roles
         .map(({id}) => ({
-          user_id: andreeffId,
+          user_id: CumbodiaId,
           role_id: id
         }))
     )
     .into('assigned_roles');
 
-  console.log(`andreeff:${password}`);
+  console.log(`Cumbodia:${password}`);
 }

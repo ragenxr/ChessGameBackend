@@ -54,8 +54,8 @@ class GamesController extends Controller {
     req,
     res
   ) => {
-    const {userIds, size = 3} = req.body;
-    const gameId = await this.games.create(userIds, size);
+    const {userIds} = req.body;
+    const gameId = await this.games.create(userIds);
 
     res.status(201).send({gameId});
   }

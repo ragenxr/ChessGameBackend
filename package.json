@@ -1,23 +1,13 @@
 {
-  "name": "tic-tac-toe-backend",
+  "name": "multiplayer-chess-game-backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "npx pm2 start ecosystem.config.js --attach",
-    "debug": "npx pm2 start index.js --attach --watch --node-args='--inspect' --name='tic-tac-toe'",
+    "debug": "npx pm2 start index.js --attach --watch --node-args='--inspect' --name='multiplayer-chess-game'",
     "db": "npx knex"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/esoft-school-2022/tic-tac-toe-backend.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/esoft-school-2022/tic-tac-toe-backend/issues"
-  },
-  "homepage": "https://github.com/esoft-school-2022/tic-tac-toe-backend#readme",
   "dependencies": {
     "@socket.io/redis-adapter": "7.2.0",
     "bcrypt": "5.0.1",
