@@ -16,6 +16,7 @@ class StatisticsDAL extends DAL {
       .from({u: 'users'})
       .leftJoin({p: 'players'}, {'u.id': 'p.user_id'})
       .leftJoin({g: 'games'}, {'p.game_id': 'g.id'})
+      .whereNotNull('g.finished_at')
       .groupBy('u.id');
 
   /**

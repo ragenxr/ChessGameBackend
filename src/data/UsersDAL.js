@@ -51,13 +51,23 @@ class UsersDAL extends DAL {
    * @return {Promise<void>}
    */
   update = async(userId, {password, status}) => {
-    const user = await this.db
-      .first({id: 'id'})
-      .from('users')
-      .where({id: userId});
+    const [user] = await this.get(
+      [...Object.keys(this.fieldMap).filter((key) => key !== 'password')],
+      [
+        {
+          left: 'id',
+          operator: '=',
+          right: userId
+        }
+      ]
+    );
 
     if (!user) {
       throw new NotFoundError('user', userId);
+    }
+
+    if (user.rights.some(({entity, level}) => entity === 'users' && level > 0)) {
+      throw new InappropriateActionError('Can\'t delete deleted user');
     }
 
     await this.db
